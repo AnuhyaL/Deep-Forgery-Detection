@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images</title>
+    <style>
+        h1 {
+            text-align: center; /* Center align the title */
+            margin-top: 20px; /* Add some top margin for spacing */
+        }
+        .image-container {
+            text-align: center; /* Center align the images */
+        }
+        .image-container img {
+            margin: 10px; /* Add some space between images */
+        }
+    </style>
+</head>
+<body>
+    <h1>Graphs</h1>
+    <hr>
+    <div class="image-container">
+        {% for image_name in image_names %}
+            <img src="{{ url_for('static', filename=image_name) }}" alt="{{ image_name }}">
+            <br>
+        {% endfor %}
+    </div>
+</body>
+</html>

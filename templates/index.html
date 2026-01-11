@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Forgery Detection</title>
+    <style>
+        body {
+            text-align: center;
+            background-image: url("{{ url_for('static', filename='background.jpg') }}"); /* Set background image */
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Do not repeat the background image */
+        }
+        h1 {
+            margin-top: 20px;
+            color: white; /* Set text color to white */
+        }
+        form {
+            margin-top: 330px; /* Adjusted margin top */
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        #file-input {
+            display: none;
+        }
+        label {
+            display: inline-block;
+            width: 150px; /* Adjusted width */
+            height: 150px; /* Adjusted height */
+            margin: 0 20px; /* Adjusted margin */
+        }
+        label img {
+            width: 100%;
+            height: 100%;
+        }
+        input[type="image"] {
+            width: 150px; /* Adjusted width */
+            height: 150px; /* Adjusted height */
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .view-images-button, .view-accuracy-button {
+            background-color: blue; /* Set button background color to blue */
+            color: white; /* Set button text color to white */
+            border: none; /* Remove button border */
+            padding: 10px 20px; /* Adjust button padding */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            text-decoration: none; /* Remove default underline style */
+        }
+        .view-images-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+        .view-accuracy-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .view-buttons-container .popup-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            font-size: 24px; /* Adjust font size */
+            text-align: center; /* Center align text */
+        }
+        .view-buttons-container .popup-message.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Deep Forgery Detection</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="file-input">
+            <img src="{{ url_for('static', filename='selectimage.jpg') }}" alt="Select Image">
+        </label>
+        <input id="file-input" type="file" name="file">
+        <div style="margin-left: 150px;"></div> <!-- Adjusted gap between buttons -->
+        <input type="image" src="{{ url_for('static', filename='predict.png') }}" alt="Predict">
+    </form>
+    <p class="no-file-selected">{{ message }}</p> <!-- Display the message only when there's no selected file -->
+    <div class="view-buttons-container">
+        <a href="/images"><button class="view-images-button">View Graphs</button></a> <!-- Button to navigate to images page -->
+        <button class="view-accuracy-button">View Achieved Accuracy</button> <!-- Button to view achieved accuracy -->
+        <div class="popup-message">Achieved accuracy is 98%</div> <!-- Popup message -->
+    </div>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    <script>
+        document.querySelector('.view-accuracy-button').addEventListener('click', function() {
+            var popupMessage = document.querySelector('.popup-message');
+            popupMessage.classList.toggle('active');
+            setTimeout(function() {
+                popupMessage.classList.remove('active');
+            }, 3000); // Hide popup message after 3 seconds
+        });
+    </script>
+</body>
+</html>
